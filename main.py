@@ -29,11 +29,20 @@ def main():
 		for v,y in enumerate(yvalues):
 			z = 0 + 0j
 			c = complex(x,y)
+			red = 111
+			green = 1
+			blue = 234
+			global total_counter
+			total_counter = 0
+			decay_multiplier = 1000 * total_counter
 			for i in range(100):
 				z = z*z + c
 				if abs(z) > 2.0:
+					global total_counter
 					# print(int(255/((abs(z) % 3) + 1)))
-					screen.set_at((u, v), ( , , ))
+					new_red,new_green,new_blue = red * decay_multiplier,int(1 - (green / decay_multiplier)),blue + decay_multiplier
+					screen.set_at((u, v), (int((new_red % 255) % 255) + 1,int((new_green % 255) % 255) + 1,int((new_blue % 255) % 255) + 1)
+					total_counter += 1
 					break
 				screen.set_at((u, v), (0,0,0))
 	pygame.display.update()
