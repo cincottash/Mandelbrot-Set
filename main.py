@@ -1,38 +1,26 @@
 import pygame
-from globals import *
+#from globals import *
 import random
 pygame.init()
 
 #background = pygame.image.load("assets/background.jpg")
 
 #pygame.display.set_caption('Space')
+canvasWidth = 200
+canvasHeight = 200
+endlessLoop = 1
 
 def main():
 
+	screen = pygame.display.set_mode((canvasWidth, canvasHeight))
+	
 	while endlessLoop:
+		
 
-		arr=[]
-		RED=(255,10,10)
-		BLU=(10,255,10)
-		GRN=(10,10,255)
-		arr.append(RED)
-		arr.append(BLU)
-		arr.append(GRN)
-		SCREEN_X=400
-		SCREEN_Y=400
-
-		screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
-		square=pygame.Surface((1, 1))
-
-		for j in range (SCREEN_Y):
-		    for i in range (SCREEN_X):
-		        num=random.randint(0,2)
-		        square.fill(arr[num])
-		        draw_me=pygame.Rect((j+1), (i+1), 1, 1)
-		        screen.blit(square,draw_me)
-		pygame.display.flip()
-
-
+		for i in range(canvasWidth):
+			for j in range(canvasHeight):
+				screen.set_at((i, j), (100,100,100))
+				pygame.display.update()
 
 if __name__ == '__main__':
 	main()
