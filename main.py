@@ -1,6 +1,8 @@
 from pylab import imshow,show,gray
 from numpy import zeros,linspace
 import pygame
+import time
+import random
 
 #math: Zn+1 = Zn + c
 #c = a + bi
@@ -30,12 +32,13 @@ def main():
 			for i in range(100):
 				z = z*z + c
 				if abs(z) > 2.0:
-					M[v,u] = 1
-					screen.set_at((u, v), (M[v,u] * 255,M[v,u] * 255,M[v,u] * 255))
+					# print(int(255/((abs(z) % 3) + 1)))
+					screen.set_at((u, v), ( , , ))
 					break
-				screen.set_at((u, v), (M[v,u],M[v,u],M[v,u]))
-	while True:
-		pygame.display.update()
+				screen.set_at((u, v), (0,0,0))
+	pygame.display.update()
+	time.sleep(100)
+
 
 
 
