@@ -3,6 +3,7 @@ from numpy import zeros,linspace
 import pygame
 import time
 import random
+import math
 
 #math: Zn+1 = Zn + c
 #c = a + bi
@@ -12,39 +13,49 @@ import random
 #Ex: Z2 = (c^2 + c)^2 + c
 
 pygame.init()
-canvasWidth = 400
-canvasHeight = 400
+canvasWidth = 600
+canvasHeight = 600
 
 
 def main():
 	screen = pygame.display.set_mode((canvasWidth, canvasHeight))
-	n= 400
+	n= 600
 
 	M = zeros([n,n],int)
-	xvalues = linspace(-2,2,n)
-	yvalues = linspace(-2,2,n)
-
+	xvalues = linspace(-2,1,n)
+	yvalues = linspace(-2,1,n)
 
 	for u,x in enumerate(xvalues):
 		for v,y in enumerate(yvalues):
+
 			z = 0 + 0j
 			c = complex(x,y)
-			red = 111
-			green = 1
-			blue = 234
-			global total_counter
-			total_counter = 0
-			decay_multiplier = 1000 * total_counter
-			for i in range(100):
+
+			red = 255
+			green = 255
+			blue = 255
+
+			for i in range(0,100):
+				prev_z = z
 				z = z*z + c
 				if abs(z) > 2.0:
-					global total_counter
-					# print(int(255/((abs(z) % 3) + 1)))
-					new_red,new_green,new_blue = red * decay_multiplier,int(1 - (green / decay_multiplier)),blue + decay_multiplier
-					screen.set_at((u, v), (int((new_red % 255) % 255) + 1,int((new_green % 255) % 255) + 1,int((new_blue % 255) % 255) + 1)
-					total_counter += 1
+
+					new_red =
+					red =
+					new_green =
+					green =
+					new_blue =
+					blue =
+
+					# print(z.real)
+					print('{r} {g} {b}'.format(r=new_red,g=new_green,b=new_blue))
+
+					screen.set_at((u, v),(red,green,blue))
 					break
+
 				screen.set_at((u, v), (0,0,0))
+
+
 	pygame.display.update()
 	time.sleep(100)
 
