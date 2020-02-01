@@ -1,1 +1,4 @@
+matplotlib==2.2.4
 pygame==1.9.6
+numpy==1.16.5
+pylab==0.0.2
