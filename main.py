@@ -17,7 +17,6 @@ def main():
 	while True:
 		pygame.display.update()
 
-
 if __name__ == '__main__':
 	initializeThreads()
 	main()

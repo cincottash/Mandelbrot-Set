@@ -14,6 +14,8 @@ def drawMandelbrotSet(start, step):
 	yValuesList = list(linspace(-2, 2, n))
 
 	u=start
+	#The x for loop is partially done by each thread.  Each thread does 1/4 of this for loop
+	#TODO: Figure out why performance is worse with more threads even though the output is correct
 	for x in range(start, n, step):
 		v=0
 		for y in range(n):
