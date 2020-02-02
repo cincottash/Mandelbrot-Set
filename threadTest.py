@@ -31,4 +31,4 @@ if __name__ == '__main__':
 	for thread in threadList:
 		thread.join()
 
-	print("--- Completed in %s seconds with threads %d running ---" % (time.time() - start_time, len(threadList)))
+	print("--- Completed in %s seconds with %d threads running ---" % (time.time() - start_time, len(threadList)))
