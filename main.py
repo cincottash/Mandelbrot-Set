@@ -16,38 +16,46 @@ canvasWidth = 400
 canvasHeight = 400
 
 screen = pygame.display.set_mode((canvasWidth, canvasHeight))
-def drawManelbrotSet():
-	
+def drawManelbrotSet(start, step):
+	xValuesList = []
+	yValuesList = []
 	n = 400
 
 	M = zeros([n,n],int)
 	xvalues = linspace(-2,2,n)
 	yvalues = linspace(-2,2,n)
 
+	for i in xvalues:
+		xValuesList.append(i)
+
+	for i in yvalues:
+		yValuesList.append(i)
+
 	#u, v
-	#u=0
-	#v=u
-	for u,x in enumerate(xvalues):
-		#u+=1
-		#v=0
-		for v,y in enumerate(yvalues):
-			#v+=1
+	u=0
+	v=u
+	#TODO: Make thread 1 do half the for loop and thread 2 do the other half
+	for x in range(start, len(xValuesList), step):
+		u+=1
+		v=0
+		for y in range(start, len(yValuesList), step):
+			v+=1
 			z = 0 + 0j
-			c = complex(x,y)
+			c = complex(xValuesList[x],yValuesList[y])
 			for i in range(100):
 				z = z*z + c
 				if abs(z) > 2.0:
 					#normalizes z between 0 and 1
 					normalZ = int(-255*((abs(z)/4)-1.5))
-					#print(normalZ)
-					screen.set_at((u, v), (normalZ, 100, 150))
+					screen.set_at((u, v), (normalZ, normalZ, normalZ))
 					break
 				screen.set_at((u, v), (0,0,0))
 	while True:
 		pygame.display.update()
+	#pygame.display.update()
 
 def main():
-		x = threading.Thread(target=drawManelbrotSet)
+		x = threading.Thread(target=drawManelbrotSet, args= (0,1))
 		x.start()
 		#pygame.display.update()
 
