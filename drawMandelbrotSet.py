@@ -1,25 +1,19 @@
 from pylab import imshow,show,gray
 from numpy import zeros,linspace
 import pygame
+
 pygame.init()
 canvasWidth = 400
 canvasHeight = 400
 screen = pygame.display.set_mode((canvasWidth, canvasHeight))
+
 def drawMandelbrotSet(start, step):
-	xValuesList = []
-	yValuesList = []
 	n = 400
 
 	M = zeros([n,n],int)
-	xvalues = linspace(-2,2,n)
-	yvalues = linspace(-2,2,n)
+	xValuesList = list(linspace(-2,2,n))
+	yValuesList = list(linspace(-2,2,n))
 
-	#Values are eaiser to work with if they are in a list
-	for i in xvalues:
-		xValuesList.append(i)
-
-	for i in yvalues:
-		yValuesList.append(i)
 
 	u=start
 	for x in range(start, n, step):
