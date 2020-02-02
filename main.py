@@ -4,19 +4,9 @@ import pygame
 import time
 import random
 import threading
-#math: Zn+1 = Zn + c
-#c = a + bi
-#c^2 = a^2 + 2abi - b^2
-#Ex: Z0 = c
-#Ex: Z1 = c^2 + c
-#Ex: Z2 = (c^2 + c)^2 + c
+import time
 
-pygame.init()
-canvasWidth = 400
-canvasHeight = 400
-
-screen = pygame.display.set_mode((canvasWidth, canvasHeight))
-def drawManelbrotSet(start, step):
+def drawMandelbrotSet(start, step):
 	xValuesList = []
 	yValuesList = []
 	n = 400
@@ -25,39 +15,66 @@ def drawManelbrotSet(start, step):
 	xvalues = linspace(-2,2,n)
 	yvalues = linspace(-2,2,n)
 
+	#Values are eaiser to work with if they are in a list
 	for i in xvalues:
 		xValuesList.append(i)
 
 	for i in yvalues:
 		yValuesList.append(i)
 
-	#u, v
-	u=0
-	v=u
+	u=start
 	#TODO: Make thread 1 do half the for loop and thread 2 do the other half
-	for x in range(start, len(xValuesList), step):
-		u+=1
+	for x in range(start, n, step):
+		u+=step
 		v=0
-		for y in range(start, len(yValuesList), step):
+		for y in range(n):
 			v+=1
 			z = 0 + 0j
-			c = complex(xValuesList[x],yValuesList[y])
+			c = complex(xValuesList[x], yValuesList[y])
 			for i in range(100):
 				z = z*z + c
 				if abs(z) > 2.0:
-					#normalizes z between 0 and 1
+					#normalizes z between 0 and 255
 					normalZ = int(-255*((abs(z)/4)-1.5))
-					screen.set_at((u, v), (normalZ, normalZ, normalZ))
+					screen.set_at((u, v), (normalZ, normalZ-0, normalZ-0))
 					break
 				screen.set_at((u, v), (0,0,0))
-	while True:
-		pygame.display.update()
-	#pygame.display.update()
+	#while True:
+		#pygame.display.update()
+
+pygame.init()
+canvasWidth = 400
+canvasHeight = 400
+screen = pygame.display.set_mode((canvasWidth, canvasHeight))
+
+threadList = []
+t0 = threading.Thread(target=drawMandelbrotSet, args= (0,1))
+# t1 = threading.Thread(target=drawManelbrotSet, args= (1,4))
+# t2 = threading.Thread(target=drawManelbrotSet, args= (2,4))
+# t3 = threading.Thread(target=drawManelbrotSet, args= (3,4))
+
+threadList.append(t0)
+# threadList.append(t1)
+# threadList.append(t2)
+# threadList.append(t3)
+
+
 
 def main():
-		x = threading.Thread(target=drawManelbrotSet, args= (0,1))
-		x.start()
-		#pygame.display.update()
+
+	start_time = time.time()
+
+	for numThread in threadList:
+		numThread.start()
+
+	for numThread in threadList:
+		numThread.join()
+	
+	print("--- %s seconds ---" % (time.time() - start_time))
+
+	while True:
+		pygame.display.update()
+
 
 if __name__ == '__main__':
 	main()
