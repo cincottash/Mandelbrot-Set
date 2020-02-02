@@ -2,7 +2,6 @@ import time
 import random
 from initializeThreads import *
 
-
 def main():
 
 	start_time = time.time()
@@ -13,7 +12,7 @@ def main():
 	for numThread in threadList:
 		numThread.join()
 	
-	print("--- %s seconds ---" % (time.time() - start_time))
+	print("--- Completed in %s seconds with threads %d running ---" % (time.time() - start_time, len(threadList)))
 
 	while True:
 		pygame.display.update()

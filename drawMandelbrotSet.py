@@ -1,4 +1,3 @@
-from pylab import imshow,show,gray
 from numpy import zeros,linspace
 import pygame
 
@@ -8,16 +7,14 @@ canvasHeight = 400
 screen = pygame.display.set_mode((canvasWidth, canvasHeight))
 
 def drawMandelbrotSet(start, step):
-	n = 400
+	n = canvasWidth
 
-	M = zeros([n,n],int)
-	xValuesList = list(linspace(-2,2,n))
-	yValuesList = list(linspace(-2,2,n))
-
+	#Make n equally spaced values between -2 and 2
+	xValuesList = list(linspace(-2, 2, n))
+	yValuesList = list(linspace(-2, 2, n))
 
 	u=start
 	for x in range(start, n, step):
-		u+=step
 		v=0
 		for y in range(n):
 			v+=1
@@ -28,6 +25,7 @@ def drawMandelbrotSet(start, step):
 				if abs(z) > 2.0:
 					#normalizes z between 0 and 255
 					normalZ = int(-255*((abs(z)/4)-1.5))
-					screen.set_at((u, v), (normalZ, normalZ-0, normalZ-0))
+					screen.set_at((u, v), (normalZ, normalZ, normalZ))
 					break
 				screen.set_at((u, v), (0,0,0))
+		u+=step
