@@ -2,8 +2,8 @@ from numpy import zeros,linspace
 import pygame
 
 pygame.init()
-canvasWidth = 400
-canvasHeight = 400
+canvasWidth = 800
+canvasHeight = 800
 screen = pygame.display.set_mode((canvasWidth, canvasHeight))
 
 def drawMandelbrotSet(start, step):
